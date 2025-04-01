@@ -19,9 +19,9 @@ app.use('/', (req, res) => {
   req.next();
 })
 
-app.get('/logout', lrs.logoutRouting);
-app.get('/kill', krs.killRputes);
-app.get('/home', hrs.homeRouting);
+app.use('/logout', lrs);
+app.use('/kill', krs);
+app.use('/home', hrs);
 
 app.listen(config.PORT);
 
