@@ -1,31 +1,30 @@
-/*
-  📦 Dependy the Importer  
-  Zaimportuj wszystkie wymagane moduły: path, express, body-parser, logger oraz routing.  
-*/
 const http = require("http");
 const config = require("./config");
-const { requestRouting } = require("./routing/routing");
+// const { requestRouting } = require("./routing/routing");
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const logger = require('./utils/logger');
+const prs = require('./routing/product');
+const lrs = require('./routing/logout');
+const krs = require('./routing/kill');
+const hrs = require('./routing/home');
+const { STATUS_CODE } = require('./constants/statusCode');
 
-const requestListener = (request, response) => {
-  requestRouting(request, response);
-};
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/', (req, res) => {
+  const { url, method } = req;
+  logger.getInfoLog(url, method);
+  req.next();
+})
 
-const server = http.createServer(requestListener);
+app.get('/logout', lrs.logoutRouting);
+app.get('/kill', krs.killRputes);
+app.get('/home', hrs.homeRouting);
 
-server.listen(config.PORT);
+app.listen(config.PORT);
 
-/*
-  🏗 Structo the Builder  
-  Utwórz instancję aplikacji express i zapisz ją w stałej app.  
-*/
-/*
-  🏗 Structo the Builder  
-  Zarejestruj middleware body-parser do parsowania ciał formularzy. 
-*/
-/*
-  🏗 Structo the Builder  
-  Dodaj middleware logujący informacje o każdym przychodzącym żądaniu.  
-*/
 /*
   🏗 Structo the Builder  
   Zarejestruj middleware obsługujące poszczególne ścieżki.  
@@ -33,8 +32,4 @@ server.listen(config.PORT);
 /*
   🏗 Structo the Builder  
     Obsłuż stronę 404 – zwróć plik 404.html i zaloguj błąd.   
-*/
-/*
-  🏗 Structo the Builder  
-    Uruchom serwer i nasłuchuj na porcie z config.js.    
 */
