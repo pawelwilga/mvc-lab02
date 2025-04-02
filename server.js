@@ -1,6 +1,5 @@
 const http = require("http");
 const config = require("./config");
-// const { requestRouting } = require("./routing/routing");
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
