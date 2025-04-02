@@ -1,5 +1,13 @@
 const fileSystem = require("fs");
 const { STATUS_CODE } = require("../constants/statusCode");
+const path = require('path');
+const express = require('express');
+
+const router = express.Router();
+
+router.get('/add', (req, res) => {
+  res.sendFile(path.join(__dirname, '../views', 'add-product.html'));
+});
 
 const productRouting = (request, response) => {
   const { url, method } = request;
@@ -30,14 +38,10 @@ const renderAddProductPage = (response) => {
   response.write(
     "<br /><label>Name<br /><input type='text' name='name'></label>"
   );
-  response.write(
-    "<br /><label>Description<br /><input type='text' name='description'></label>"
-  );
+  response.write("<br /><label>Description<br /><input type='text' name='description'></label>");
   response.write("<br /><button type='submit'>Add</button>");
   response.write("</form>");
-  response.write(
-    "<nav><a href='/'>Home</a><br /><a href='/product/new'>Newest product</a><br /><a href='/logout'>Logout</a></nav>"
-  );
+  response.write("<nav><a href='/'>Home</a><br /><a href='/product/new'>Newest product</a><br /><a href='/logout'>Logout</a></nav>");
   response.write("</body>");
   response.write("</html>");
 
@@ -94,4 +98,4 @@ const addNewProduct = (request, response) => {
   });
 };
 
-module.exports = { productRouting };
+module.exports = router;

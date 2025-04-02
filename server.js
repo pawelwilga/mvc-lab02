@@ -19,6 +19,7 @@ app.use('/', (req, res) => {
   req.next();
 })
 
+app.use('/product', prs);
 app.use('/logout', lrs);
 app.use('/kill', krs);
 app.use('/home', hrs);

@@ -1,8 +1,10 @@
+const express = require('express');
 const path = require('path');
 
-const logoutRouting = (req, res) => {
-  res.setHeader("Content-Type", "text/html");
-  res.sendFile(path.join(__dirname, '../views', 'logout.html'));
-};
+const router = express.Router();
 
-module.exports = { logoutRouting };
+router.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../views', 'logout.html'));
+});
+
+module.exports = router;
