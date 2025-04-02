@@ -17,20 +17,15 @@ app.use('/', (req, res) => {
   const { url, method } = req;
   logger.getInfoLog(url, method);
   req.next();
-})
+});
 
 app.use('/product', prs);
 app.use('/logout', lrs);
 app.use('/kill', krs);
 app.use('/home', hrs);
+app.use((req, res) => {
+  logger.getErrorLog(req.url);
+  res.status(STATUS_CODE.NOT_FOUND).sendFile(path.join(__dirname, './views', '404.html'));
+});
 
 app.listen(config.PORT);
-
-/*
-  🏗 Structo the Builder  
-  Zarejestruj middleware obsługujące poszczególne ścieżki.  
-*/
-/*
-  🏗 Structo the Builder  
-    Obsłuż stronę 404 – zwróć plik 404.html i zaloguj błąd.   
-*/
